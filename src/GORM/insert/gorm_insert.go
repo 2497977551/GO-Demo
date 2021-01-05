@@ -5,9 +5,7 @@ package main
 */
 import (
 	"fmt"
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"log"
 )
 
 type test struct {
@@ -20,28 +18,16 @@ var gOrmDB *gorm.DB
 func init() {
 	// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name 获取详情
 	var err error
-	dsn := "root:admin@tcp(localhost:3306)/GoWeb?charset=utf8mb4&parseTime=True&loc=Local"
-	gOrmDB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	err, gOrmDB = IndexInit()
 	if err != nil {
-		log.Fatalln("数据库连接失败：", err.Error())
+		fmt.Println("MySQL数据库连接失败...", err.Error())
 	} else {
-		fmt.Println("连接成功")
+		fmt.Println("MySQL数据库连接成功")
 	}
 
 }
 func main() {
-	defer func() {
-		sqlDb, err := gOrmDB.DB()
-		if err != nil {
-			log.Fatalln(err.Error())
-		}
-		err = sqlDb.Close()
-		if err != nil {
-			log.Fatalln("数据库连接断开失败", err.Error())
-		} else {
-			fmt.Println("数据库连接断开成功")
-		}
-	}()
+	defer IndexDefer(gOrmDB)
 
 	//user := test{Name: "Athena", Sex: "女"}
 	/*
@@ -51,7 +37,7 @@ func main() {
 	//gOrmDB.Select("ID", "Name", "Sex").Create(&user)
 
 	// 批量插入
-	userMax := []test{{"kyo", "男"}, {"JayChou", "男"}, {"JJLin", "男"}}
+	userMax := []test{{"AMei", "女"}, {"Zed", "男"}, {"Jinx", "女"}}
 	// 插入所有字段
 	//gOrmDB.Create(&userMax)
 
