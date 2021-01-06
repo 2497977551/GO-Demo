@@ -21,7 +21,13 @@ func init() {
 	// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name
 	var err error
 	dsn := "root:admin@tcp(localhost:3306)/GoWeb?charset=utf8mb4&parseTime=True&loc=Local"
-	gOrmDB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	gOrmDB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+		//NamingStrategy: schema.NamingStrategy{
+		//	//TablePrefix: "t_",   // 表名前缀，`User` 的表名应该是 `t_users`
+		//	SingularTable: true, // 使用单数表名，启用该选项，此时，`User` 的表名应该是 `t_user`
+		//},
+	})
+
 	if err != nil {
 		log.Fatalln("数据库连接失败：", err.Error())
 	} else {
@@ -74,11 +80,11 @@ func selectOne(index int) (result *gorm.DB, user test) {
 	return
 }
 
-// 根据索引获取所有匹配的数据
+// 根据索引获取所有匹配的数据,使用切片接收
 func selectMax(sex string) (result *gorm.DB, t []test) {
-	user := test{}
-	result = gOrmDB.Where("Sex = ?", sex).Find(&user)
-	t = append(t, user)
+
+	result = gOrmDB.Where("Sex = ?", sex).Find(&t)
+
 	return
 }
 
