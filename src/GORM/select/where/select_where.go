@@ -17,6 +17,7 @@ type test struct {
 var gOrmDB *gorm.DB
 
 func init() {
+
 	// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name
 	var err error
 	dsn := "root:admin@tcp(localhost:3306)/GoWeb?charset=utf8mb4&parseTime=True&loc=Local"
