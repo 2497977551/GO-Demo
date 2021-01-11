@@ -30,14 +30,29 @@ func main() {
 	}()
 
 	r := gin.Default()
-	userGroup := r.Group("/user")
-	userGroup.Use(Cors())
+	apiGroup := r.Group("/api")
+	apiGroup.Use(Cors())
 	{
-		userGroup.POST("/register", RegisterUsers)
-		userGroup.POST("/login", MemberLogin)
-		userGroup.POST("/updateMember", UpdateMembers)
-		userGroup.POST("/memberPostBlog", PostBlog)
-		userGroup.POST("/memberPostNotice", MemberPostNotice)
+		userGroup := apiGroup.Group("/user")
+		{
+			userGroup.POST("/register", RegisterUsers)          // 用户注册
+			userGroup.POST("/login", MemberLogin)               // 登录
+			userGroup.POST("/updateMember", UpdateMembers)      // 修改信息
+			userGroup.POST("/queryMemberInfo", QueryMemberInfo) // 查询个人信息
+			userGroup.GET("/queryAllFollow", QueryAllFollow)    // 查询多少人关注我
+		}
+
+		blogGroup := apiGroup.Group("/blog")
+		{
+			blogGroup.POST("/memberPostBlog", PostBlog)           // 发布博客
+			blogGroup.POST("/memberPostNotice", MemberPostNotice) // 发布公告
+			blogGroup.POST("/commentBlog", CommentBlog)           // 评论博客
+			blogGroup.POST("/queryMaxBlog", QueryMaxBlog)         // 查询首页所有博客
+			blogGroup.POST("/followMember", FollowMember)         // 关注或者取消关注博主
+			blogGroup.POST("/queryAllBlog", QueryAllBlog)         // 查询已关注的用户所有博客
+			blogGroup.POST("/memberStar", Star)                   // 点赞
+		}
+
 	}
 
 	if err := r.Run(":5050"); err != nil {

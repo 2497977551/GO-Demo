@@ -35,3 +35,23 @@ type Notice struct {
 	UpdateTime   time.Time `gorm:"column:update_time" json:"update_time"`
 	DeleteDate   time.Time `gorm:"column:delete_date" json:"delete_date"`
 }
+
+type Release struct {
+	Id           uint      `gorm:"column:id;primary_key;AUTO_INCREMENT" json:"id"`
+	MemberId     uint      `gorm:"column:member_id" json:"member_id"`
+	ArticleId    uint      `gorm:"column:article_id" json:"article_id"`
+	Comment      string    `gorm:"column:comment" json:"comment"`
+	CreationTime time.Time `gorm:"column:creation_time" json:"creation_time"`
+	UpdateTime   time.Time `gorm:"column:update_time" json:"update_time"`
+}
+
+type Paging struct {
+	Page     int `json:"page"`
+	PageSize int `json:"page_size"`
+}
+
+type Follow struct {
+	Id       int `gorm:"column:id;primary_key;AUTO_INCREMENT" json:"id"`
+	MemberId int `gorm:"column:member_id" json:"member_id"`
+	UserId   int `gorm:"column:user_id" json:"user_id"`
+}

@@ -1,5 +1,6 @@
 package main
 
+// 发布广告
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
