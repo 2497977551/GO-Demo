@@ -1,0 +1,35 @@
+2021-01-12T14:46:31.769+0800	[31mERROR[0m	controller/plugins.go:438	download plugins, rename errormap[error:rename C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/GoAdminGroup/librarian-0.0.5 C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/GoAdminGroup/librarian@v0.0.5: Access is denied. nowPath:C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/GoAdminGroup/librarian-0.0.5 rawPath:C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/GoAdminGroup/librarian]
+github.com/GoAdminGroup/go-admin/modules/logger.Error
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/!go!admin!group/go-admin@v1.2.18/modules/logger/logger.go:285
+github.com/GoAdminGroup/go-admin/plugins/admin/controller.(*Handler).PluginDownload
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/!go!admin!group/go-admin@v1.2.18/plugins/admin/controller/plugins.go:438
+github.com/GoAdminGroup/go-admin/context.(*Context).Next
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/!go!admin!group/go-admin@v1.2.18/context/context.go:101
+github.com/GoAdminGroup/go-admin/modules/auth.(*Invoker).Middleware.func1
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/!go!admin!group/go-admin@v1.2.18/modules/auth/middleware.go:132
+github.com/GoAdminGroup/go-admin/context.(*Context).Next
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/!go!admin!group/go-admin@v1.2.18/context/context.go:101
+github.com/GoAdminGroup/go-admin/plugins/admin.(*Admin).globalErrorHandler
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/!go!admin!group/go-admin@v1.2.18/plugins/admin/router.go:106
+github.com/GoAdminGroup/go-admin/context.(*Context).Next
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/!go!admin!group/go-admin@v1.2.18/context/context.go:101
+github.com/GoAdminGroup/go-admin/adapter/gin.(*Gin).AddHandler.func1
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/!go!admin!group/go-admin@v1.2.18/adapter/gin/gin.go:91
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/gin-gonic/gin@v1.6.3/context.go:161
+github.com/gin-gonic/gin.RecoveryWithWriter.func1
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/gin-gonic/gin@v1.6.3/recovery.go:83
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/gin-gonic/gin@v1.6.3/context.go:161
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/gin-gonic/gin@v1.6.3/logger.go:241
+github.com/gin-gonic/gin.(*Context).Next
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/gin-gonic/gin@v1.6.3/context.go:161
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/gin-gonic/gin@v1.6.3/gin.go:409
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	C:/Users/admin/Desktop/GoWeb/pkg/mod/github.com/gin-gonic/gin@v1.6.3/gin.go:367
+net/http.serverHandler.ServeHTTP
+	D:/Go/src/net/http/server.go:2843
+net/http.(*conn).serve
+	D:/Go/src/net/http/server.go:1925
