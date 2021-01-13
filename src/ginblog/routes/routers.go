@@ -31,6 +31,18 @@ func InitRouter() {
 			// 删除用户
 			v1user.POST("/DeleteUser", v1.DeleteUser)
 		}
+
+		// 文章模块路由组
+		v1article := rv1.Group("/Article")
+		{
+			v1article.POST("")
+		}
+
+		// 分类模块路由组
+		v1category := rv1.Group("/Category")
+		{
+			v1category.POST("")
+		}
 	}
 	err := r.Run(setting.HttpPort)
 	if err != nil {
