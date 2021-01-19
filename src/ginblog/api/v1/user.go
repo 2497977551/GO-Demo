@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/satori/go.uuid"
 	"net/http"
+	//"reflect"
 	"strconv"
 	"time"
 )
@@ -25,36 +26,40 @@ func QueryUserIfExist(c *gin.Context) {
 func AddUser(c *gin.Context) {
 	from := model.User{CreationTime: time.Now(), Id: uuid.NewV1()}
 	err = c.ShouldBindJSON(&from)
-	if err != nil {
-		fmt.Println(err)
-		c.JSON(http.StatusNotFound, gin.H{
-			"Status":  404,
-			"MessAge": "参数错误",
-		})
-	}
-
-	code = model.CheckUser(from.UserName)
-	if code == ErrorInfo.SucCse {
-		code = model.CreateUser(&from)
-		if code == ErrorInfo.SucCse {
-			c.JSON(http.StatusOK, gin.H{
-				"Status":  code,
-				"MessAge": ErrorInfo.GetErrMsg(code),
-			})
-		} else {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println(err)
 			c.JSON(http.StatusNotFound, gin.H{
-				"Status":  code,
-				"MessAge": ErrorInfo.GetErrMsg(code),
+				"Status":  404,
+				"MessAge": "参数错误",
 			})
+			fmt.Println(err)
+		} else {
+			code = model.CheckUser(from.UserName)
+			if code == ErrorInfo.SucCse {
+				code = model.CreateUser(&from)
+				if code == ErrorInfo.SucCse {
+					c.JSON(http.StatusOK, gin.H{
+						"Status":  code,
+						"MessAge": ErrorInfo.GetErrMsg(code),
+					})
+				} else {
+					c.JSON(http.StatusNotFound, gin.H{
+						"Status":  code,
+						"MessAge": ErrorInfo.GetErrMsg(code),
+					})
+				}
+
+			} else {
+				c.JSON(http.StatusNotFound, gin.H{
+					"Status":  code,
+					"MessAge": ErrorInfo.GetErrMsg(code),
+				})
+			}
 		}
+	}()
 
-	} else {
-		c.JSON(http.StatusNotFound, gin.H{
-			"Status":  code,
-			"MessAge": ErrorInfo.GetErrMsg(code),
-		})
-	}
-
+	panic(err)
 }
 
 // 查询单个用户
