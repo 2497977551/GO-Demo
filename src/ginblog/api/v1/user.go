@@ -6,6 +6,7 @@ import (
 	"ginblog/utils/ErrorInfo"
 	"github.com/gin-gonic/gin"
 	"github.com/satori/go.uuid"
+	"log"
 	"net/http"
 	//"reflect"
 	"strconv"
@@ -122,7 +123,30 @@ func QueryAllUserList(c *gin.Context) {
 }
 
 // 编辑用户
-func EditUser(c *gin.Context) {}
+
+func EditUser(c *gin.Context) {
+
+	from := model.Users{}
+	err = c.ShouldBind(&from)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	code := model.UpdateUser(from.Id, from)
+	c.JSON(http.StatusOK, gin.H{
+		"Status":  code,
+		"Message": ErrorInfo.GetErrMsg(code),
+	})
+
+}
 
 // 删除用户
-func DeleteUser(c *gin.Context) {}
+func DeleteUser(c *gin.Context) {
+
+	from := model.User{}
+	err = c.ShouldBindJSON(&from)
+	code := model.DeleteUsers(from.Id)
+	c.JSON(http.StatusOK, gin.H{
+		"Status":  code,
+		"Message": ErrorInfo.GetErrMsg(code),
+	})
+}
