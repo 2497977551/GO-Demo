@@ -112,12 +112,10 @@ func DeleteUsers(id uuid.UUID) int {
 
 // 编辑用户
 type Users struct {
-	Id       uuid.UUID `gorm:"column:ID;primary_key" json:"Id" binding:"required"`          // 用户id
-	UserName string    `gorm:"column:UserName;NOT NULL" json:"UserName" binding:"required"` // 用户名
-
-	Role bool `gorm:"column:Role;NOT NULL" json:"Role" binding:"required"` // 用户权限
-
-	UpdateTime time.Time `gorm:"column:UpdateTime" json:"UpdateTime"` // 修改时间
+	Id         uuid.UUID `gorm:"column:ID;primary_key" json:"Id" binding:"required"`          // 用户id
+	UserName   string    `gorm:"column:UserName;NOT NULL" json:"UserName" binding:"required"` // 用户名
+	Role       bool      `gorm:"column:Role;NOT NULL" json:"Role" binding:"required"`         // 用户权限
+	UpdateTime time.Time `gorm:"column:UpdateTime" json:"UpdateTime"`                         // 修改时间
 }
 
 func beforeUpdate(id uuid.UUID) (g *gorm.DB) {

@@ -141,7 +141,6 @@ func EditUser(c *gin.Context) {
 
 // 删除用户
 func DeleteUser(c *gin.Context) {
-
 	from := model.User{}
 	err = c.ShouldBindJSON(&from)
 	code := model.DeleteUsers(from.Id)

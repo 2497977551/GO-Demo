@@ -41,7 +41,8 @@ func InitRouter() {
 		// 分类模块路由组
 		v1category := rv1.Group("/Category")
 		{
-			v1category.POST("")
+			v1category.POST("/AddCategory", v1.AppendCategory)
+			v1category.GET("QueryAllCategory", v1.QueryCategoryList)
 		}
 	}
 	err := r.Run(setting.HttpPort)
