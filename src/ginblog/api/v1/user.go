@@ -76,7 +76,6 @@ func QueryUser(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"Status":  code,
-			"Data":    user,
 			"MessAge": ErrorInfo.GetErrMsg(code),
 		})
 	}
@@ -131,11 +130,19 @@ func EditUser(c *gin.Context) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	code := model.UpdateUser(from.Id, from)
-	c.JSON(http.StatusOK, gin.H{
-		"Status":  code,
-		"Message": ErrorInfo.GetErrMsg(code),
-	})
+	userCode := model.CheckUser(from.UserName)
+	if userCode == 200 {
+		code := model.UpdateUser(from.Id, from)
+		c.JSON(http.StatusOK, gin.H{
+			"Status":  code,
+			"Message": ErrorInfo.GetErrMsg(code),
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"Status":  userCode,
+			"Message": ErrorInfo.GetErrMsg(userCode),
+		})
+	}
 
 }
 

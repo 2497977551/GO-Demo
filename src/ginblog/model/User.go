@@ -71,7 +71,7 @@ func QueryUsers(username string) (users []queryUser, code int) {
 	if username != " " {
 		err = db.Debug().Table("user").Where("UserName = ?", username).First(&users).Error
 		if err != nil {
-			code = ErrorInfo.Error
+			code = ErrorInfo.ERRUserNoExistent
 			return
 		} else {
 			code = ErrorInfo.SucCse
@@ -126,6 +126,7 @@ func beforeUpdate(id uuid.UUID) (g *gorm.DB) {
 func UpdateUser(id uuid.UUID, u Users) int {
 	var err error
 	g := beforeUpdate(id)
+	CheckUser(u.UserName)
 	if g.RowsAffected != 0 {
 		return ErrorInfo.Error
 	}
