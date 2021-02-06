@@ -1,2 +1,2 @@
-# GO-Demo
-新手学习
+# Golang
+go语言
