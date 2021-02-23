@@ -136,3 +136,10 @@ func UpdateUser(id uuid.UUID, u Users) int {
 	}
 	return ErrorInfo.SucCse
 }
+func Login(name, pwd string) int {
+	err = db.Debug().Table("user").Where("name = ? AND pwd = ?", name, pwd).Error
+	if err != nil {
+		return ErrorInfo.Error
+	}
+	return ErrorInfo.SucCse
+}

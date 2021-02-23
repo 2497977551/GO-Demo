@@ -1,10 +1,10 @@
 package routes
 
 import (
-	"fmt"
 	v1 "ginblog/api/v1"
 	setting "ginblog/utils"
 	"github.com/gin-gonic/gin"
+	"log"
 )
 
 func InitRouter() {
@@ -30,6 +30,8 @@ func InitRouter() {
 			v1user.POST("UpdateUser", v1.EditUser)
 			// 删除用户
 			v1user.POST("DeleteUser", v1.DeleteUser)
+			//	登陆
+			v1user.POST("Login", v1.UserLogin)
 		}
 
 		// 文章模块路由组
@@ -64,6 +66,6 @@ func InitRouter() {
 	}
 	err := r.Run(setting.HttpPort)
 	if err != nil {
-		fmt.Println("gin服务启动失败", err.Error())
+		log.Fatalln("gin服务启动失败", err.Error())
 	}
 }

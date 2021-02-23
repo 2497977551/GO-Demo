@@ -34,3 +34,7 @@ type EditArticles struct {
 	CID       uuid.UUID `gorm:"column:CID" json:"CID"`
 	UpdatedAt time.Time `gorm:"column:UpdateTime" json:"UpdateTime"`
 }
+type UserLogin struct {
+	UserName string `gorm:"column:UserName;NOT NULL" json:"UserName" binding:"required"` // 用户名
+	PassWord string `gorm:"column:PassWord;NOT NULL" json:"PassWord" binding:"required"` // 用户密码
+}

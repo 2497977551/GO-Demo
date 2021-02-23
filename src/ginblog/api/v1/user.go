@@ -156,3 +156,17 @@ func DeleteUser(c *gin.Context) {
 		"Message": ErrorInfo.GetErrMsg(code),
 	})
 }
+
+func UserLogin(c *gin.Context) {
+	from := model.UserLogin{}
+	err = c.ShouldBindJSON(&from)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"Status":  404,
+			"Message": err,
+		})
+		return
+	}
+	code := model.Login(from.UserName, from.PassWord)
+	c.JSON()
+}
