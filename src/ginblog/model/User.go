@@ -12,13 +12,13 @@ import (
 )
 
 type User struct {
-	Id           uuid.UUID      `gorm:"column:ID;primary_key" json:"Id" binding:"required"`          // 用户id
-	UserName     string         `gorm:"column:UserName;NOT NULL" json:"UserName" binding:"required"` // 用户名
-	PassWord     string         `gorm:"column:PassWord;NOT NULL" json:"PassWord" binding:"required"` // 用户密码
-	Role         bool           `gorm:"column:Role;NOT NULL" json:"Role" binding:"required"`         // 用户权限
-	CreationTime time.Time      `gorm:"column:CreationTime" json:"CreationTime"`                     // 创建时间
-	UpdateTime   time.Time      `gorm:"column:UpdateTime" json:"UpdateTime"`                         // 修改时间
-	DeleteTime   gorm.DeletedAt `gorm:"column:DeleteTime" json:"DeleteTime"`                         // 删除时间
+	Id           uuid.UUID       `gorm:"column:ID;primary_key" json:"Id" binding:"required"`          // 用户id
+	UserName     string          `gorm:"column:UserName;NOT NULL" json:"UserName" binding:"required"` // 用户名
+	PassWord     string          `gorm:"column:PassWord;NOT NULL" json:"PassWord" binding:"required"` // 用户密码
+	Role         bool            `gorm:"column:Role;NOT NULL" json:"Role" binding:"required"`         // 用户权限
+	CreationTime time.Time       `gorm:"column:CreationTime" json:"CreationTime"`                     // 创建时间
+	UpdateTime   time.Time       `gorm:"column:UpdateTime" json:"UpdateTime"`                         // 修改时间
+	DeleteTime   *gorm.DeletedAt `gorm:"column:DeleteTime" json:"DeleteTime"`                         // 删除时间
 }
 type queryUser struct {
 	Id       uuid.UUID `gorm:"column:ID;primary_key" json:"Id" binding:"required"` // 用户id
@@ -136,10 +136,20 @@ func UpdateUser(id uuid.UUID, u Users) int {
 	}
 	return ErrorInfo.SucCse
 }
+
+// 验证登录
 func Login(name, pwd string) int {
-	err = db.Debug().Table("user").Where("name = ? AND pwd = ?", name, pwd).Error
-	if err != nil {
-		return ErrorInfo.Error
+	var user User
+	db.Debug().Where("UserName = ?", name).First(&user)
+	if user.Id == uuid.Nil {
+		return ErrorInfo.ERRUserNoExistent
+	}
+	if str := HashPwd(pwd); str != user.PassWord {
+
+		return ErrorInfo.ERRPassWordWrong
+	}
+	if !user.Role {
+		return ErrorInfo.ERRNoPermission
 	}
 	return ErrorInfo.SucCse
 }

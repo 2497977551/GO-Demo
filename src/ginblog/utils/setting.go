@@ -14,6 +14,7 @@ var (
 	DbUser     string
 	DbPassWord string
 	DbName     string
+	JwtKey     string
 )
 
 func init() {
@@ -29,6 +30,7 @@ func LoadServer(file *ini.File) {
 	// 获取ini配置文件的分区值，并赋予初始值
 	AppMode = file.Section("server").Key("AppMode").MustString("debug")
 	HttpPort = file.Section("server").Key("HttpPort").MustString(":9090")
+	JwtKey = file.Section("server").Key("JwtKey").MustString("2021JoshuaGO1017")
 }
 func LoadData(file *ini.File) {
 	// 获取ini配置文件的分区值，并赋予初始值

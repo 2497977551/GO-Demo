@@ -2,6 +2,7 @@ package v1
 
 import (
 	"fmt"
+	"ginblog/middleware"
 	"ginblog/model"
 	"ginblog/utils/ErrorInfo"
 	"github.com/gin-gonic/gin"
@@ -157,8 +158,13 @@ func DeleteUser(c *gin.Context) {
 	})
 }
 
+// 登录
 func UserLogin(c *gin.Context) {
 	from := model.UserLogin{}
+	var (
+		token string
+		code  int
+	)
 	err = c.ShouldBindJSON(&from)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
@@ -167,6 +173,15 @@ func UserLogin(c *gin.Context) {
 		})
 		return
 	}
-	code := model.Login(from.UserName, from.PassWord)
-	c.JSON()
+	code = model.Login(from.UserName, from.PassWord)
+
+	if code == ErrorInfo.SucCse {
+		token, code = middleware.SetToken(from.UserName)
+
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"Status":  code,
+		"MessAge": ErrorInfo.GetErrMsg(code),
+		"Token":   token,
+	})
 }
