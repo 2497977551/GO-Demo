@@ -6,12 +6,11 @@ import (
 	"ginblog/model"
 	"ginblog/utils/ErrorInfo"
 	"github.com/gin-gonic/gin"
-	"github.com/satori/go.uuid"
+	uuid "github.com/satori/go.uuid"
 	"log"
 	"net/http"
 	//"reflect"
 	"strconv"
-	"time"
 )
 
 var (
@@ -26,7 +25,8 @@ func QueryUserIfExist(c *gin.Context) {
 
 // 添加用户
 func AddUser(c *gin.Context) {
-	from := model.User{CreationTime: time.Now(), Id: uuid.NewV1()}
+	from := model.User{}
+	from.Model.Id = uuid.NewV1()
 	err = c.ShouldBindJSON(&from)
 	defer func() {
 		if err := recover(); err != nil {

@@ -17,36 +17,26 @@ func InitRouter() {
 	rv1 := r.Group("Api/V1")
 	rv1.Use(middleware.JWTTokenMid())
 	{
-
 		// 校验用户是否存在
 		rv1.POST("UserNameCheck", v1.QueryUserIfExist)
-
 		// 编辑用户
 		rv1.POST("UpdateUser", v1.EditUser)
 		// 删除用户
 		rv1.POST("DeleteUser", v1.DeleteUser)
-
-		// 文章模块路由组
-
 		// 添加文章
 		rv1.POST("AddArticle", v1.AddOneArticle)
-
 		//	编辑文章
 		rv1.POST("UpdateArticle", v1.UpdateArticle)
 		//	删除文章
 		rv1.POST("RemoveArticle", v1.RemoveArticle)
-
-		// 分类模块路由组
-
 		// 添加分类
 		rv1.POST("AddCategory", v1.AppendCategory)
-
 		// 修改分类
 		rv1.POST("UpdateCategory", v1.UpdateCate)
 		// 删除分类
 		rv1.POST("DeleteCategory", v1.RemoveCate)
-
 	}
+
 	noMid := r.Group("Api/V1")
 	{
 		// 查询单个分类下所有文章

@@ -12,13 +12,11 @@ import (
 )
 
 type User struct {
-	Id           uuid.UUID       `gorm:"column:ID;primary_key" json:"Id" binding:"required"`          // 用户id
-	UserName     string          `gorm:"column:UserName;NOT NULL" json:"UserName" binding:"required"` // 用户名
-	PassWord     string          `gorm:"column:PassWord;NOT NULL" json:"PassWord" binding:"required"` // 用户密码
-	Role         bool            `gorm:"column:Role;NOT NULL" json:"Role" binding:"required"`         // 用户权限
-	CreationTime time.Time       `gorm:"column:CreationTime" json:"CreationTime"`                     // 创建时间
-	UpdateTime   time.Time       `gorm:"column:UpdateTime" json:"UpdateTime"`                         // 修改时间
-	DeleteTime   *gorm.DeletedAt `gorm:"column:DeleteTime" json:"DeleteTime"`                         // 删除时间
+	Model
+	UserName string `gorm:"column:UserName;NOT NULL" json:"UserName" binding:"required"` // 用户名
+	PassWord string `gorm:"column:PassWord;NOT NULL" json:"PassWord" binding:"required"` // 用户密码
+	Role     bool   `gorm:"column:Role;NOT NULL" json:"Role" binding:"required"`         // 用户权限
+
 }
 type queryUser struct {
 	Id       uuid.UUID `gorm:"column:ID;primary_key" json:"Id" binding:"required"` // 用户id
