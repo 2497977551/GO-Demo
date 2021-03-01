@@ -18,10 +18,10 @@ func Upload(c *gin.Context) {
 		})
 		return
 	}
-	if file.Size >= 1024*1024*5 {
+	if file.Size >= 1024*1024*3 {
 		c.JSON(http.StatusOK, gin.H{
 			"Status":  ErrorInfo.Error,
-			"Message": "文件过大",
+			"Message": "文件已大于3MB",
 		})
 		fmt.Println(file.Size)
 		return
