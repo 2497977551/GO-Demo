@@ -1,0 +1,18 @@
+package middleware
+
+import (
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
+	"time"
+)
+
+func Log() gin.HandlerFunc {
+	logger := logrus.New()
+	return func(c *gin.Context) {
+		starTime := time.Now()
+		c.Next()
+		endTime := time.Since(starTime)
+		takeTime := fmt.Sprintf("%d ms",)
+	}
+}
