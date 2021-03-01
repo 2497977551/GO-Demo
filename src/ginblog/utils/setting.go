@@ -15,6 +15,11 @@ var (
 	DbPassWord string
 	DbName     string
 	JwtKey     string
+
+	AccessKey  string
+	SecretKey  string
+	BucKey     string
+	QiniuSever string
 )
 
 func init() {
@@ -24,6 +29,7 @@ func init() {
 	}
 	LoadServer(file)
 	LoadData(file)
+	LoadFile(file)
 }
 
 func LoadServer(file *ini.File) {
@@ -40,4 +46,10 @@ func LoadData(file *ini.File) {
 	DbUser = file.Section("database").Key("DbUser").MustString("root")
 	DbPassWord = file.Section("database").Key("DbPassWord").MustString("admin")
 	DbName = file.Section("database").Key("DbName").MustString("goblog")
+}
+func LoadFile(file *ini.File) {
+	AccessKey = file.Section("qiniu").Key("AccessKey").String()
+	SecretKey = file.Section("qiniu").Key("SecretKey").String()
+	BucKey = file.Section("qiniu").Key("BucKey").String()
+	QiniuSever = file.Section("qiniu").Key("QiniuSever").String()
 }
