@@ -18,7 +18,7 @@ var (
 
 	AccessKey  string
 	SecretKey  string
-	BucKey     string
+	BucKet     string
 	QiniuSever string
 )
 
@@ -50,6 +50,6 @@ func LoadData(file *ini.File) {
 func LoadFile(file *ini.File) {
 	AccessKey = file.Section("qiniu").Key("AccessKey").String()
 	SecretKey = file.Section("qiniu").Key("SecretKey").String()
-	BucKey = file.Section("qiniu").Key("BucKey").String()
+	BucKet = file.Section("qiniu").Key("BucKet").String()
 	QiniuSever = file.Section("qiniu").Key("QiniuSever").String()
 }

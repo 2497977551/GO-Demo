@@ -35,6 +35,8 @@ func InitRouter() {
 		rv1.POST("UpdateCategory", v1.UpdateCate)
 		// 删除分类
 		rv1.POST("DeleteCategory", v1.RemoveCate)
+		//	上传文件
+		rv1.POST("UploadFile", v1.Upload)
 	}
 
 	noMid := r.Group("Api/V1")
