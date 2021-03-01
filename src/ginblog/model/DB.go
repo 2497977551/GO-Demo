@@ -26,13 +26,16 @@ func InitDb() (sqlDb *sql.DB) {
 		NamingStrategy: schema.NamingStrategy{
 			//	//TablePrefix: "t_",   // 表名前缀，`User` 的表名应该是 `t_users`
 			SingularTable: true, // 使用单数表名
+
 		},
 	})
+
 	if err != nil {
 		fmt.Println("MySQL数据库连接失败", err.Error())
 	}
 
 	sqlDb, err = db.DB()
+
 	if err != nil {
 		fmt.Println(err.Error())
 	}

@@ -29,7 +29,8 @@ type queryUser struct {
 // 判断用户名是否存在
 func CheckUser(username string) int {
 	var users User
-	db.Debug().Select("UserName").Where("UserName = ?", username).First(&users)
+
+	db.Select("UserName").Where("UserName = ?", username).First(&users)
 
 	if users.UserName != "" {
 		fmt.Println("用户名：", users.UserName)
@@ -41,7 +42,7 @@ func CheckUser(username string) int {
 // 创建用户
 func CreateUser(users *User) int {
 	users.PassWord = HashPwd(users.PassWord)
-	err = db.Debug().Omit("UpdateTime").Create(&users).Error
+	err = db.Omit("UpdateTime").Create(&users).Error
 	if err != nil {
 		return ErrorInfo.Error
 	}
@@ -53,7 +54,7 @@ func GetAllUser(page, pageSize int) (users []queryUser, id int64, p1, p2 int, co
 
 	if page > 0 && pageSize > 0 {
 
-		db.Debug().Table("user").Where("DeleteTime is null").Offset((page - 1) * pageSize).Limit(pageSize).Find(&users)
+		db.Table("user").Where("DeleteTime is null").Offset((page - 1) * pageSize).Limit(pageSize).Find(&users)
 
 		db.Debug().Table("user").Where("DeleteTime is null").Count(&id)
 		p1, p2 = page, pageSize
@@ -67,7 +68,7 @@ func GetAllUser(page, pageSize int) (users []queryUser, id int64, p1, p2 int, co
 // 查询单个用户
 func QueryUsers(username string) (users []queryUser, code int) {
 	if username != " " {
-		err = db.Debug().Table("user").Where("UserName = ?", username).First(&users).Error
+		err = db.Table("user").Where("UserName = ?", username).First(&users).Error
 		if err != nil {
 			code = ErrorInfo.ERRUserNoExistent
 			return
@@ -101,7 +102,7 @@ func HashPwd(password string) (pwd string) {
 
 // 删除用户
 func DeleteUsers(id uuid.UUID) int {
-	err := db.Debug().Where("id = ?", id).Delete(&User{}).Error
+	err := db.Where("id = ?", id).Delete(&User{}).Error
 	if err != nil {
 		return ErrorInfo.Error
 	}
@@ -118,7 +119,7 @@ type Users struct {
 
 func beforeUpdate(id uuid.UUID) (g *gorm.DB) {
 	var user User
-	g = db.Debug().Unscoped().Table("user").Where("id = ? AND DeleteTime is not null", id).Find(&user)
+	g = db.Unscoped().Table("user").Where("id = ? AND DeleteTime is not null", id).Find(&user)
 	return
 }
 func UpdateUser(id uuid.UUID, u Users) int {
@@ -128,7 +129,7 @@ func UpdateUser(id uuid.UUID, u Users) int {
 	if g.RowsAffected != 0 {
 		return ErrorInfo.Error
 	}
-	err = db.Debug().Table("user").Where("id = ?", id).Updates(Users{UserName: u.UserName, Role: u.Role, UpdateTime: time.Now()}).Error
+	err = db.Table("user").Where("id = ?", id).Updates(Users{UserName: u.UserName, Role: u.Role, UpdateTime: time.Now()}).Error
 	if err != nil {
 		return ErrorInfo.Error
 	}
@@ -138,7 +139,7 @@ func UpdateUser(id uuid.UUID, u Users) int {
 // 验证登录
 func Login(name, pwd string) int {
 	var user User
-	db.Where("UserName = ?", name).First(&user)
+	db.Table("User").Where("UserName = ?", name).First(&user)
 	if user.Id == uuid.Nil {
 		return ErrorInfo.ERRUserNoExistent
 	}

@@ -3,14 +3,46 @@ package middleware
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
+	"github.com/rifflock/lfshook"
 	"github.com/sirupsen/logrus"
+
 	"math"
 	"os"
 	"time"
 )
 
 func Log() gin.HandlerFunc {
+	logPath := "log/log.log"
+	newestLog := "newestLog.log"
+	src, err := os.OpenFile(logPath, os.O_RDWR|os.O_CREATE, 0755)
+	if err != nil {
+		fmt.Println("err:", err)
+	}
 	logger := logrus.New()
+	logger.Out = src
+
+	logger.SetLevel(logrus.DebugLevel)
+	logWriter, _ := rotatelogs.New(
+		logPath+".%Y%m%d.log",
+		rotatelogs.WithLinkName(logPath),
+		rotatelogs.WithMaxAge(7*24*time.Hour),
+		rotatelogs.WithRotationTime(24*time.Hour),
+		rotatelogs.WithLinkName(newestLog),
+	)
+
+	writerMap := lfshook.WriterMap{
+		logrus.DebugLevel: logWriter,
+		logrus.ErrorLevel: logWriter,
+		logrus.FatalLevel: logWriter,
+		logrus.InfoLevel:  logWriter,
+		logrus.PanicLevel: logWriter,
+		logrus.TraceLevel: logWriter,
+	}
+	Hook := lfshook.NewHook(writerMap, &logrus.TextFormatter{
+		TimestampFormat: "2006-01-02 15:04:05",
+	})
+	logger.AddHook(Hook)
 	return func(c *gin.Context) {
 		starTime := time.Now()
 		c.Next()

@@ -1,0 +1,7 @@
+time="2021-03-02T00:05:08+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=LAPTOP-04GUAASM Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryUser?UserName=admin2" Size=43 SpendTime="20068360000000 ms" Status=200
+time="2021-03-01T23:48:21+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=LAPTOP-04GUAASM Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryUser?UserName=admin2" Size=43 SpendTime="5690610000000 ms" Status=200
+
+nfo Agent=PostmanRuntime/7.26.8 HostName=LAPTOP-04GUAASM Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryUser?UserName=admin2" Size=43 SpendTime="5990810000000 ms" Status=200
+time="2021-03-01T22:40:39+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=LAPTOP-04GUAASM Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryUser?UserName=admin2" Size=43 SpendTime="21466320000000 ms" Status=200
+time="2021-03-01T22:40:43+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=LAPTOP-04GUAASM Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryUser?UserName=admin2" Size=43 SpendTime="1397930000000 ms" Status=200
+time="2021-03-01T22:40:47+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=LAPTOP-04GUAASM Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryUser?UserName=admin2" Size=43 SpendTime="1297840000000 ms" Status=200
