@@ -12,8 +12,9 @@ func InitRouter() {
 	// 选择模式，debug为开发模式，test为测试模式，release为生产模式
 	gin.SetMode(setting.AppMode)
 
-	r := gin.Default()
-
+	r := gin.New()
+	r.Use(gin.Recovery())
+	r.Use(middleware.Log())
 	rv1 := r.Group("Api/V1")
 	rv1.Use(middleware.JWTTokenMid())
 	{

@@ -138,7 +138,7 @@ func UpdateUser(id uuid.UUID, u Users) int {
 // 验证登录
 func Login(name, pwd string) int {
 	var user User
-	db.Debug().Where("UserName = ?", name).First(&user)
+	db.Where("UserName = ?", name).First(&user)
 	if user.Id == uuid.Nil {
 		return ErrorInfo.ERRUserNoExistent
 	}
