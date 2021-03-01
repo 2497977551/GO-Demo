@@ -10,7 +10,7 @@ import (
 
 func Upload(c *gin.Context) {
 	file, err := c.FormFile("file")
-	fileName := file.Filename
+
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"Status":  ErrorInfo.Error,
@@ -18,6 +18,7 @@ func Upload(c *gin.Context) {
 		})
 		return
 	}
+
 	if file.Size >= 1024*1024*3 {
 		c.JSON(http.StatusOK, gin.H{
 			"Status":  ErrorInfo.Error,
@@ -26,6 +27,7 @@ func Upload(c *gin.Context) {
 		fmt.Println(file.Size)
 		return
 	}
+	fileName := file.Filename
 	url, code := model.UploadFile(fileName)
 	c.JSON(http.StatusOK, gin.H{
 		"Status":  code,
