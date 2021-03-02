@@ -5,6 +5,7 @@ import (
 	"ginblog/middleware"
 	"ginblog/model"
 	"ginblog/utils/ErrorInfo"
+	"ginblog/utils/Validator"
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"
 	"log"
@@ -28,40 +29,40 @@ func AddUser(c *gin.Context) {
 	from := model.User{}
 	from.Model.Id = uuid.NewV1()
 	err = c.ShouldBindJSON(&from)
-	defer func() {
-		if err := recover(); err != nil {
-			fmt.Println(err)
-			c.JSON(http.StatusNotFound, gin.H{
-				"Status":  404,
-				"MessAge": "参数错误",
-			})
-			fmt.Println(err)
-		} else {
-			code = model.CheckUser(from.UserName)
-			if code == ErrorInfo.SucCse {
-				code = model.CreateUser(&from)
-				if code == ErrorInfo.SucCse {
-					c.JSON(http.StatusOK, gin.H{
-						"Status":  code,
-						"MessAge": ErrorInfo.GetErrMsg(code),
-					})
-				} else {
-					c.JSON(http.StatusNotFound, gin.H{
-						"Status":  code,
-						"MessAge": ErrorInfo.GetErrMsg(code),
-					})
-				}
 
-			} else {
-				c.JSON(http.StatusNotFound, gin.H{
-					"Status":  code,
-					"MessAge": ErrorInfo.GetErrMsg(code),
-				})
-			}
-		}
-	}()
+	if err := recover(); err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"Status":  ErrorInfo.Error,
+			"MessAge": "请检查是否填写正确",
+		})
+		return
+	}
 
-	panic(err)
+	msg, codes := Validator.Validate(&from)
+	if codes != ErrorInfo.SucCse {
+		c.JSON(http.StatusOK, gin.H{
+			"Status":  codes,
+			"Message": msg,
+		})
+		return
+	}
+
+	code = model.CheckUser(from.UserName)
+	if code == ErrorInfo.SucCse {
+		code = model.CreateUser(&from)
+		c.JSON(http.StatusOK, gin.H{
+			"Status":  code,
+			"MessAge": ErrorInfo.GetErrMsg(code),
+		})
+		return
+	} else {
+		c.JSON(http.StatusNotFound, gin.H{
+			"Status":  code,
+			"MessAge": ErrorInfo.GetErrMsg(code),
+		})
+		return
+	}
+
 }
 
 // 查询单个用户

@@ -5,6 +5,7 @@ import (
 	"ginblog/utils/ErrorInfo"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 // 添加文章
@@ -38,12 +39,28 @@ func QueryOneArticle(c *gin.Context) {
 
 // 查询文章列表
 func QueryArticleList(c *gin.Context) {
-	data, code := model.QueryAllArticle()
+	var (
+		pageSize int
+		pageNum  int
+		perr     error
+	)
+	pageSize, perr = strconv.Atoi(c.PostForm("PageSize"))
+	pageNum, perr = strconv.Atoi(c.PostForm("PageNum"))
+	if perr != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"Status":  ErrorInfo.Error,
+			"Message": "参数错误",
+		})
+		return
+	}
+	data, code, total := model.QueryAllArticle(pageSize, pageNum)
 	c.JSON(http.StatusOK, gin.H{
 		"Data":    data,
+		"Total":   total,
 		"Status":  code,
 		"Message": ErrorInfo.GetErrMsg(code),
 	})
+	return
 }
 
 // 编辑文章

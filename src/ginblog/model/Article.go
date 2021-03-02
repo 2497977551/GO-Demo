@@ -22,7 +22,7 @@ func AddArticle(title, describe, content, cid string) int {
 	a.Describe = describe
 	a.Content = content
 	a.CID = cid
-	err = db.Debug().Table("Article").Select("ID", "CID", "Title", "Describe", "Content", "CreationTime").Create(&a).Error
+	err = db.Debug().Table("Article").Create(&a).Error
 	if err != nil {
 		return ErrorInfo.Error
 	}
@@ -41,8 +41,9 @@ func QueryArticle(title string) (a []ArticleList, code int) {
 }
 
 // 查询文章列表
-func QueryAllArticle() (a []ArticleList, code int) {
-	err = db.Debug().Table("Article").Find(&a).Error
+func QueryAllArticle(pageSize, pageNum int) (a []ArticleList, code int, count int64) {
+
+	err = db.Debug().Table("Article").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&a).Count(&count).Error
 	if err != nil {
 		code = ErrorInfo.Error
 		return

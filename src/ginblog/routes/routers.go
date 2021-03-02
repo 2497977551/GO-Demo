@@ -13,8 +13,8 @@ func InitRouter() {
 	gin.SetMode(setting.AppMode)
 
 	r := gin.New()
-	r.Use(gin.Recovery())
-	r.Use(middleware.Log())
+	r.Use(gin.Recovery(), middleware.Log(), middleware.Cors())
+
 	rv1 := r.Group("Api/V1")
 	rv1.Use(middleware.JWTTokenMid())
 	{

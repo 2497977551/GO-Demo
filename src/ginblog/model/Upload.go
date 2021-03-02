@@ -7,6 +7,7 @@ import (
 	"ginblog/utils/ErrorInfo"
 	"github.com/qiniu/go-sdk/v7/auth/qbox"
 	"github.com/qiniu/go-sdk/v7/storage"
+	"mime/multipart"
 )
 
 var accessKey = utils.AccessKey
@@ -14,7 +15,7 @@ var secretKey = utils.SecretKey
 var bucKet = utils.BucKet
 var imgURL = utils.QiniuSever
 
-func UploadFile(file string) (string, int) {
+func UploadFile(file multipart.File, fileSize int64) (string, int) {
 	// 客户端上传凭证
 	putPolicy := storage.PutPolicy{
 		Scope: bucKet,
@@ -36,7 +37,7 @@ func UploadFile(file string) (string, int) {
 	ret := storage.PutRet{}
 	// 可选配置
 	putExtra := storage.PutExtra{}
-	err := formUploader.PutFile(context.Background(), &ret, upToken, file, imgURL, &putExtra)
+	err := formUploader.PutWithoutKey(context.Background(), &ret, upToken, file, fileSize, &putExtra)
 	if err != nil {
 		fmt.Println(err)
 		return err.Error(), ErrorInfo.Error

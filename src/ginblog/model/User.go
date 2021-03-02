@@ -2,7 +2,6 @@ package model
 
 import (
 	"encoding/base64"
-	"fmt"
 	"ginblog/utils/ErrorInfo"
 	uuid "github.com/satori/go.uuid"
 	"golang.org/x/crypto/scrypt"
@@ -13,14 +12,14 @@ import (
 
 type User struct {
 	Model
-	UserName string `gorm:"column:UserName;NOT NULL" json:"UserName" binding:"required"` // 用户名
-	PassWord string `gorm:"column:PassWord;NOT NULL" json:"PassWord" binding:"required"` // 用户密码
-	Role     bool   `gorm:"column:Role;NOT NULL" json:"Role" binding:"required"`         // 用户权限
+	UserName string `gorm:"column:UserName;NOT NULL" json:"UserName" validate:"required,min=4,max=10" label:"用户名"` // 用户名
+	PassWord string `gorm:"column:PassWord;NOT NULL" json:"PassWord" validate:"required,min=8,max=16" label:"密码"`  // 用户密码
+	Role     bool   `gorm:"column:Role;NOT NULL" json:"Role" validate:"required" label:"权限"`                       // 用户权限
 
 }
 type queryUser struct {
-	Id       uuid.UUID `gorm:"column:ID;primary_key" json:"Id" binding:"required"` // 用户id
-	UserName string    `gorm:"column:UserName;NOT NULL" json:"UserName" binding:"required"`
+	Id       uuid.UUID `gorm:"column:ID;primary_key" json:"Id" validate:"required"` // 用户id
+	UserName string    `gorm:"column:UserName;NOT NULL" json:"UserName" validate:"required"`
 	// 用户名
 	Role         bool      `gorm:"column:Role;NOT NULL" json:"Role" `       // 用户权限
 	CreationTime time.Time `gorm:"column:CreationTime" json:"CreationTime"` // 创建时间
@@ -33,7 +32,7 @@ func CheckUser(username string) int {
 	db.Select("UserName").Where("UserName = ?", username).First(&users)
 
 	if users.UserName != "" {
-		fmt.Println("用户名：", users.UserName)
+
 		return ErrorInfo.ERRUserNameExists
 	}
 	return ErrorInfo.SucCse
@@ -41,11 +40,15 @@ func CheckUser(username string) int {
 
 // 创建用户
 func CreateUser(users *User) int {
-	users.PassWord = HashPwd(users.PassWord)
+
 	err = db.Omit("UpdateTime").Create(&users).Error
 	if err != nil {
 		return ErrorInfo.Error
 	}
+	if users.UserName == "" || users.PassWord == "" {
+		return ErrorInfo.Error
+	}
+	users.PassWord = HashPwd(users.PassWord)
 	return ErrorInfo.SucCse
 }
 
