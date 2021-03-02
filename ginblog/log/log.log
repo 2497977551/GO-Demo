@@ -1,0 +1,19 @@
+time="2021-03-02T16:01:22+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=POST Path=/Api/V1/UploadFile Size=102 SpendTime="44178620000000 ms" Status=200
+
+time="2021-03-02T15:30:00+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryArticleList?PageSize=20&PageNum=1" Size=39 SpendTime="0 ms" Status=200
+time="2021-03-02T15:30:14+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=POST Path=/Api/V1/UploadFile Size=118 SpendTime="398840000000 ms" Status=200
+time="2021-03-02T15:32:27+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryArticleList?PageSize=20&PageNum=1" Size=549 SpendTime="10788650000000 ms" Status=200
+time="2021-03-02T15:32:40+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryArticleList?PageSize=20&PageNum=1" Size=549 SpendTime="3490750000000 ms" Status=200
+time="2021-03-02T15:32:43+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryArticleList?PageSize=20&PageNum=1" Size=49 SpendTime="199410000000 ms" Status=200
+time="2021-03-02T15:32:49+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryArticleList?PageSize=20&PageNum=1" Size=549 SpendTime="199510000000 ms" Status=200
+time="2021-03-02T15:33:04+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryArticleList?PageSize=20&PageNum=1" Size=549 SpendTime="1396260000000 ms" Status=200
+time="2021-03-02T15:33:07+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryArticleList?PageSize=20&PageNum=1" Size=549 SpendTime="398890000000 ms" Status=200
+time="2021-03-02T15:33:16+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path="/Api/V1/QueryArticleList?PageSize=20&PageNum=1" Size=2554 SpendTime="396420000000 ms" Status=200
+time="2021-03-02T15:34:54+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=POST Path=/Api/V1/UploadFile Size=118 SpendTime="199500000000 ms" Status=200
+time="2021-03-02T15:34:55+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=POST Path=/Api/V1/UploadFile Size=118 SpendTime="99700000000 ms" Status=200
+time="2021-03-02T15:34:56+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=POST Path=/Api/V1/UploadFile Size=118 SpendTime="99750000000 ms" Status=200
+:07+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=POST Path=/Api/V1/AddArticle Size=27 SpendTime="23811960000000 ms" Status=200
+time="2021-03-02T15:10:08+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=POST Path=/Api/V1/AddArticle Size=27 SpendTime="24654020000000 ms" Status=200
+time="2021-03-02T15:10:12+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path=/Api/V1/QueryArticleList Size=5549 SpendTime="398880000000 ms" Status=200
+time="2021-03-02T15:13:23+08:00" level=warning Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path=/Api/V1/Category/QueryAllCategory Size=-1 SpendTime="0 ms" Status=404
+time="2021-03-02T15:13:28+08:00" level=info Agent=PostmanRuntime/7.26.8 HostName=DESKTOP-V4BKCRE Ip=127.0.0.1 Method=GET Path=/Api/V1/QueryAllCategory Size=282 SpendTime="598330000000 ms" Status=200
