@@ -175,10 +175,8 @@ func UserLogin(c *gin.Context) {
 		return
 	}
 	code = model.Login(from.UserName, from.PassWord)
-
 	if code == ErrorInfo.SucCse {
 		token, code = middleware.SetToken(from.UserName)
-
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"Status":  code,

@@ -14,7 +14,7 @@ type User struct {
 	Model
 	UserName string `gorm:"column:UserName;NOT NULL" json:"UserName" validate:"required,min=4,max=10" label:"用户名"` // 用户名
 	PassWord string `gorm:"column:PassWord;NOT NULL" json:"PassWord" validate:"required,min=8,max=16" label:"密码"`  // 用户密码
-	Role     bool   `gorm:"column:Role;NOT NULL" json:"Role" validate:"required" label:"权限"`                       // 用户权限
+	Role     bool   `gorm:"column:Role;NOT NULL" json:"Role"  label:"权限"`                                          // 用户权限
 
 }
 type queryUser struct {
@@ -40,7 +40,7 @@ func CheckUser(username string) int {
 
 // 创建用户
 func CreateUser(users *User) int {
-
+	users.PassWord = HashPwd(users.PassWord)
 	err = db.Omit("UpdateTime").Create(&users).Error
 	if err != nil {
 		return ErrorInfo.Error
@@ -48,7 +48,7 @@ func CreateUser(users *User) int {
 	if users.UserName == "" || users.PassWord == "" {
 		return ErrorInfo.Error
 	}
-	users.PassWord = HashPwd(users.PassWord)
+
 	return ErrorInfo.SucCse
 }
 
