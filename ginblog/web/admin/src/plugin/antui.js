@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Button, FormModel, Input,Icon,message,Layout,Menu } from 'ant-design-vue'
+import { Button, FormModel, Input,Icon,message,Layout,Menu,Card,Row,Col,Table } from 'ant-design-vue'
 
 message.config({
     top: `50px`,
@@ -13,3 +13,7 @@ Vue.use(Input)
 Vue.use(Icon)
 Vue.use(Layout)
 Vue.use(Menu)
+Vue.use(Card)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Table)

@@ -5,3 +5,10 @@ body,
     margin: 0;
     padding: 0;
 }
+.ant-card{
+    background-color: #fff;
+    margin: 10px;
+}
+.ant-table{
+    top: 10px;
+}

@@ -92,7 +92,7 @@ export default {
         }
         window.localStorage.setItem('Token', res.data.Token)
         console.log(res.data.Token)
-        this.$router.push('admin')
+        this.$router.push('admin/index')
         return this.$message.success('登录成功')
       })
     },
