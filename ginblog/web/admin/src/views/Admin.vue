@@ -2,18 +2,21 @@
   <a-layout id="container">
     <Nav></Nav>
     <a-layout>
-      <Content></Content>
-      <Footer></Footer>
+      <a-layout-content>
+        <router-view></router-view>
+      </a-layout-content>
+      <a-layout-footer>
+        <Footer></Footer>
+      </a-layout-footer>
     </a-layout>
   </a-layout>
 </template>
 <script>
 import Nav from '../components/admin/Nav'
 import Footer from '../components/admin/Footer'
-import Content from '../components/admin/Content'
+
 export default {
-  components: { Nav, Footer, Content },
-  
+  components: { Nav, Footer }
 }
 </script>
 
@@ -21,5 +24,4 @@ export default {
 #container {
   height: 100%;
 }
-
 </style>
