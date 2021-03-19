@@ -13,7 +13,7 @@ import (
 )
 
 func Log() gin.HandlerFunc {
-	logPath := "log/log.log"
+	logPath := "log"
 	newestLog := "newestLog.log"
 	src, err := os.OpenFile(logPath, os.O_RDWR|os.O_CREATE, 0755)
 	if err != nil {
